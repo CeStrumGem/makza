@@ -6,12 +6,7 @@
 <title>lada.blog</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  html, body { 
-    min-height: 100%; 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
-    background-color: #000;
-  }
+  html, body { height: 100%; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 
   /* ---------- BACKGROUND (ФОТО) ---------- */
   .bg {
@@ -34,47 +29,65 @@
     z-index: -1;
   }
 
-  /* ---------- CONTENT WRAPPER ---------- */
-  .wrap {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* контент внизу, фото сверху */
-    align-items: center;
-    padding: 24px 20px calc(40px + env(safe-area-inset-bottom));
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ---------- QR CODE ---------- */
+  /* ---------- QR CODE (В САМОМ ВЕРХУ) ---------- */
   .qr-container {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 24px;
-    animation: fadeIn 0.8s ease-out;
+    z-index: 10;
+    animation: fadeInDown 0.8s ease-out;
   }
 
   .qr-image {
-    width: 140px;
-    height: 140px;
+    width: 110px;
+    height: 110px;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     background: #fff;
-    padding: 6px;
+    padding: 5px;
   }
 
   .qr-text {
-    margin-top: 8px;
+    margin-top: 6px;
     color: #fff;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 1px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    opacity: 0.9;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
   }
 
-  /* ---------- FORM ---------- */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translate(-50%, -15px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+
+  /* ---------- BOTTOM PANEL (ФОРМА) ---------- */
+  .wrap {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 24px 20px calc(40px + env(safe-area-inset-bottom));
+  }
+
+  @media (max-width: 600px) {
+    .wrap {
+      padding-bottom: calc(120px + env(safe-area-inset-bottom));
+    }
+    .qr-image {
+      width: 90px;
+      height: 90px;
+    }
+    .qr-container {
+      top: 20px;
+    }
+  }
+
   form {
     width: 100%;
     max-width: 460px;
@@ -132,41 +145,19 @@
   [data-fs-error]:empty,
   [data-fs-success]:empty { min-height: 0; margin-top: 0; }
   [data-fs-error] { color: #ffb4b4; }
-
-  /* ---------- MOBILE (только уменьшаем QR, низ сохраняем) ---------- */
-  @media (max-width: 600px) {
-    .wrap {
-      justify-content: flex-end; /* фото остаётся видимым */
-      padding-bottom: calc(50px + env(safe-area-inset-bottom));
-    }
-    .qr-image {
-      width: 110px;
-      height: 110px;
-    }
-    .qr-container {
-      margin-bottom: 18px;
-    }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
 </style>
 </head>
 <body>
   <div class="bg"></div>
   <div class="overlay"></div>
 
-  <div class="wrap">
-    
-    <!-- QR CODE -->
-    <div class="qr-container">
-      <img src="qr-code.png" alt="MAKZA_LADA QR" class="qr-image">
-      <span class="qr-text">MAKZA_LADA</span>
-    </div>
+  <!-- QR CODE (ВИСИТ ВВЕРХУ, НЕ ЗАКРЫВАЕТ ФОТО) -->
+  <div class="qr-container">
+    <img src="qr-code.png" alt="MAKZA_LADA QR" class="qr-image">
+    <span class="qr-text">MAKZA_LADA</span>
+  </div>
 
-    <!-- FORM -->
+  <div class="wrap">
     <form id="my-form" novalidate>
       <input
         type="text"
