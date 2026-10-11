@@ -32,32 +32,20 @@
   /* ---------- QR CODE (В ЛЕВОМ ВЕРХНЕМ УГЛУ) ---------- */
   .qr-container {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    top: 24px;
+    left: 24px;
     z-index: 10;
     animation: fadeInDown 0.8s ease-out;
   }
 
   .qr-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    width: 200px;
+    height: 200px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.45);
     background: #fff;
-    padding: 4px;
-  }
-
-  .qr-text {
-    margin-top: 4px;
-    color: #fff;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
-    opacity: 0.85;
+    padding: 8px;
+    display: block;
   }
 
   @keyframes fadeInDown {
@@ -81,15 +69,14 @@
       padding-bottom: calc(100px + env(safe-area-inset-bottom));
     }
     .qr-container {
-      top: 12px;
-      left: 12px;
+      top: 14px;
+      left: 14px;
     }
     .qr-image {
-      width: 60px;
-      height: 60px;
-    }
-    .qr-text {
-      font-size: 9px;
+      width: 120px;
+      height: 120px;
+      border-radius: 10px;
+      padding: 5px;
     }
   }
 
@@ -158,8 +145,7 @@
 
   <!-- QR CODE (ЛЕВЫЙ ВЕРХНИЙ УГОЛ) -->
   <div class="qr-container">
-    <img src="qr-code.png" alt="MAKZA_LADA QR" class="qr-image">
-    <span class="qr-text">MAKZA_LADA</span>
+    <img src="qr-code.png" alt="QR" class="qr-image">
   </div>
 
   <div class="wrap">
