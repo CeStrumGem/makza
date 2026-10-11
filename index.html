@@ -154,8 +154,8 @@
         type="text"
         id="message"
         name="message"
-        placeholder="Leave your phone number…"
-        maxlength="30"
+        placeholder="Leave your name and phone number…"
+        maxlength="50"
         inputmode="text"
         autocomplete="off"
         required
@@ -169,9 +169,10 @@
   </div>
 
 <script>
+  // Разрешены: латиница, цифры, @ + . - и пробел. Максимум 50 символов.
   const input = document.getElementById('message');
   input.addEventListener('input', () => {
-    input.value = input.value.replace(/[^A-Za-z0-9@+\-. ]/g, '').slice(0, 30);
+    input.value = input.value.replace(/[^A-Za-z0-9@+\-. ]/g, '').slice(0, 50);
   });
 
   window.formspree = window.formspree || function () {
